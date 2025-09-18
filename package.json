@@ -4,20 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-rest": "node server.js",
+    "start-graphql": "node graphql/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juliodelimas/pgats-2025-02-base.git"
+    "url": "git+https://github.com/andersonsbenicio/pgats-2025-02-base.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/juliodelimas/pgats-2025-02-base/issues"
+    "url": "https://github.com/andersonsbenicio/pgats-2025-02-base/issues"
   },
-  "homepage": "https://github.com/juliodelimas/pgats-2025-02-base#readme",
+  "homepage": "https://github.com/andersonsbenicio/pgats-2025-02-base#readme",
   "dependencies": {
     "apollo-server-express": "^3.13.0",
     "express": "^4.21.2",
