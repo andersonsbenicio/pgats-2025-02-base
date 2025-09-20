@@ -1,0 +1,11 @@
+{
+  "items": [{ "productId": 1, "quantity": 1 }],
+  "freight": 10,
+  "paymentMethod": "credit_card",
+  "cardData": {
+    "number": "4111111111111111",
+    "name": "Anderson",
+    "expiry": "12/31",
+    "cvv": "456"
+  }
+}

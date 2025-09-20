@@ -6,7 +6,7 @@ const { expect } = require('chai');
 const app = require('../../../graphql/app');
 
 //Testes
-describe('Testes de Checkout', () => {
+describe('Testes de Checkout GraphQL External', () => {
   let token;
 
   before(async () => {
@@ -22,33 +22,33 @@ describe('Testes de Checkout', () => {
   });
 
   it('deve realizar checkout com sucesso com pagamento por cartão', async () => {
-  const checkoutCreditCard = require('../fixture/regras/checkoutCreditCard.json');
+  const creditCardWithData = require('../fixture/regras/creditCardWithData.json');
     const resposta = await request(app)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
-      .send(checkoutCreditCard);
+      .send(creditCardWithData);
 
     expect(resposta.status).to.equal(200);
     expect(resposta.body.data.checkout.paymentMethod).to.equal('credit_card');
   });
 
   it('deve retornar erro se dados do cartão não forem enviados', async () => {
-  const checkoutCreditCardMissingCard = require('../fixture/regras/checkoutCreditCardMissingCard.json');
+  const creditCardWithoutData = require('../fixture/regras/creditCardWithoutData.json');
     const resposta = await request(app)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
-      .send(checkoutCreditCardMissingCard);
+      .send(creditCardWithoutData);
     
     expect(resposta.status).to.equal(200);
     expect(resposta.body.errors[0].message).to.equal('Dados do cartão obrigatórios para pagamento com cartão');
   });
 
   it('deve retornar erro se produto não for encontrado', async () => {
-  const checkoutInvalidProduct = require('../fixture/regras/checkoutInvalidProduct.json');
+  const invalidProduct = require('../fixture/regras/invalidProduct.json');
     const resposta = await request(app)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
-      .send(checkoutInvalidProduct);
+      .send(invalidProduct);
    
     expect(resposta.status).to.equal(200);
     expect(resposta.body.errors[0].message).to.equal('Produto não encontrado');
