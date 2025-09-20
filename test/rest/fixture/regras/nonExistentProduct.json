@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "productId": 999,
+      "quantity": 1
+    }
+  ],
+  "freight": 10,
+  "paymentMethod": "boleto"
+}
