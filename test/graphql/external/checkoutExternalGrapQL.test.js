@@ -1,10 +1,8 @@
 //Bibliotecas
 const request = require('supertest');
 const { expect } = require('chai');
-require("dotenv").config();
 
-//Aplicação
-const app = require('../../../graphql/app');
+require("dotenv").config();
 
 //Testes
 describe('Testes de Checkout GraphQL External', () => {
@@ -12,11 +10,11 @@ describe('Testes de Checkout GraphQL External', () => {
 
   before(async () => {
     const registerUser = require('../fixture/requisicoes/registerUser.json');
-    await request(app)
+    await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .send(registerUser);
     const loginUser = require('../fixture/requisicoes/loginUser.json');
-    const loginRes = await request(app)
+    const loginRes = await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .send(loginUser);
     token = loginRes.body.data.login.token;
@@ -24,7 +22,7 @@ describe('Testes de Checkout GraphQL External', () => {
 
   it('deve realizar checkout com sucesso com pagamento por cartão', async () => {
   const creditCardWithData = require('../fixture/regras/creditCardWithData.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
       .send(creditCardWithData);
@@ -35,7 +33,7 @@ describe('Testes de Checkout GraphQL External', () => {
 
   it('deve retornar erro se dados do cartão não forem enviados', async () => {
   const creditCardWithoutData = require('../fixture/regras/creditCardWithoutData.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
       .send(creditCardWithoutData);
@@ -46,7 +44,7 @@ describe('Testes de Checkout GraphQL External', () => {
 
   it('deve retornar erro se produto não for encontrado', async () => {
   const invalidProduct = require('../fixture/regras/invalidProduct.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .set('Authorization', `Bearer ${token}`)
       .send(invalidProduct);
@@ -57,7 +55,7 @@ describe('Testes de Checkout GraphQL External', () => {
 
   it('deve retornar erro se não enviar token', async () => {
   const tokenlessCheckout = require('../fixture/regras/tokenlessCheckout.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_GRAPHQL)
       .post('/graphql')
       .send(tokenlessCheckout);
     
