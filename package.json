@@ -8,7 +8,7 @@
     "test-rest-external": "mocha test/rest/external/**/*.test.js --timeout 10000 --reporter mochawesome",
     "test-rest-controller": "mocha test/rest/controller/**/*.test.js --timeout 10000 --reporter mochawesome",
     "test-graphql-external": "mocha test/graphql/external/**/*.test.js --timeout 10000 --reporter mochawesome",
-    "start-rest": "node server.js",
+    "start-rest": "node rest/server.js",
     "start-graphql": "node graphql/server.js"
   },
   "repository": {
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/andersonsbenicio/pgats-2025-02-base#readme",
   "dependencies": {
     "apollo-server-express": "^3.13.0",
+    "bcryptjs": "^3.0.2",
     "express": "^4.21.2",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
