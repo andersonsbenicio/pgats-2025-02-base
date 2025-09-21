@@ -13,7 +13,7 @@ const checkoutService = require('../../../src/services/checkoutService');
 describe('Testes de Checkout Rest Controller', () => {
   
   beforeEach(async () => {
-    // Cria usuário e obtém token
+    
     await request(app)
       .post('/api/users/register')
       .send({
