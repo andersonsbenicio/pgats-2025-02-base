@@ -1,10 +1,8 @@
 //Bibliotecas
 const request = require('supertest');
 const { expect } = require('chai');
-require("dotenv").config();
 
-//Aplicação
-const app = require('../../../rest/app');
+require("dotenv").config();
 
 //Testes
 describe('Testes de Checkout Rest External', () => {
@@ -12,11 +10,11 @@ describe('Testes de Checkout Rest External', () => {
 
   before(async () => {
     const postUser = require('../fixture/requisicoes/postUser.json');
-    await request(app)
+    await request(process.env.BASE_URL_REST)
       .post('/api/users/register')
       .send(postUser);
     const postLogin = require('../fixture/requisicoes/postLogin.json');
-    const login = await request(app)
+    const login = await request(process.env.BASE_URL_REST)
       .post('/api/users/login')
       .send(postLogin);
     token = login.body.token;
@@ -24,7 +22,7 @@ describe('Testes de Checkout Rest External', () => {
 
   it('deve realizar checkout com sucesso com pagamento por cartão', async () => {
     const validCard = require('../fixture/regras/validCard.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_REST)
       .post('/api/checkout')
       .set('Authorization', `Bearer ${token}`)
       .send(validCard);
@@ -35,7 +33,7 @@ describe('Testes de Checkout Rest External', () => {
 
   it('deve retornar erro se dados do cartão não forem enviados', async () => {
     const invalidCard = require('../fixture/regras/invalidCard.json');
-    const resposta = await request(app)    
+    const resposta = await request(process.env.BASE_URL_REST)    
       .post('/api/checkout')
       .set('Authorization', `Bearer ${token}`)
       .send(invalidCard);
@@ -46,7 +44,7 @@ describe('Testes de Checkout Rest External', () => {
 
   it('deve retornar erro se produto não for encontrado', async () => {
     const nonExistentProduct = require('../fixture/regras/nonExistentProduct.json');
-    const resposta = await request(app)
+    const resposta = await request(process.env.BASE_URL_REST)
       .post('/api/checkout')
       .set('Authorization', `Bearer ${token}`)
       .send(nonExistentProduct);
