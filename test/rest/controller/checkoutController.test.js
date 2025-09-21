@@ -45,7 +45,8 @@ describe('Testes de Checkout Rest Controller', () => {
         freight: 20,
         paymentMethod: 'boleto'
       });
-    expect(resposta.status).to.equal(200);    
+    expect(resposta.status).to.equal(200);  
+    expect(resposta.body.paymentMethod).to.equal('boleto');    
   });
 
   it('Usando Mocks: deve realizar checkout com sucesso', async () => {
@@ -66,7 +67,8 @@ describe('Testes de Checkout Rest Controller', () => {
         paymentMethod: 'boleto'
       });
 
-    expect(resposta.status).to.equal(200);    
+    expect(resposta.status).to.equal(200); 
+    
   });
 
   it('deve retornar erro ao tentar checkout sem token', async () => {
